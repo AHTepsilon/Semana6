@@ -37,6 +37,45 @@ public class MainActivity extends AppCompatActivity {
         btnRight = findViewById(R.id.buttonRight);
         btnMiddle = findViewById(R.id.buttonMiddle);
         initClient();
+
+        btnDown.setOnClickListener(
+                (view) ->
+                {
+                    String y = "2";
+                    sendMessage(y);
+                }
+        );
+
+        btnUp.setOnClickListener(
+                (view) ->
+                {
+                    String y = "1";
+                    sendMessage(y);
+                }
+        );
+
+        btnLeft.setOnClickListener(
+                (view) ->
+                {
+                    String x = "3";
+                    sendMessage(x);
+                }
+        );
+
+        btnRight.setOnClickListener(
+                (view) ->
+                {
+                    String x = "4";
+                    sendMessage(x);
+                }
+        );
+
+        btnMiddle.setOnClickListener(
+                (view) ->
+                {
+
+                }
+        );
     }
 
     public void initClient()
@@ -46,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     try {
                         System.out.println("Connecting to server...");
-                        socket = new Socket("192.168.1.9", 2000);
+                        socket = new Socket("192.168.1.9", 4000);
                         System.out.println("Established connection to server");
 
                         InputStream is = socket.getInputStream();
@@ -85,5 +124,38 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }).start();
+    }
+
+    public void moveVer(int dir)
+    {
+        try {
+            if(dir == 1)
+            {
+                writer.write("up" + "\n");
+                writer.flush();
+            }
+            if(dir == 0)
+            {
+                writer.write("down" + "\n");
+                writer.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveHor(int dir) {
+        try {
+            if (dir == 1) {
+                writer.write("right" + "\n");
+                writer.flush();
+            }
+            if (dir == 0) {
+                writer.write("left" + "\n");
+                writer.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
