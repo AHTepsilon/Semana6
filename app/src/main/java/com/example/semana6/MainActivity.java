@@ -41,32 +41,36 @@ public class MainActivity extends AppCompatActivity {
         btnDown.setOnClickListener(
                 (view) ->
                 {
-                    String y = "2";
-                    sendMessage(y);
+                    String y = "5";
+                    String x = "0";
+                    sendMessage(x, y);
                 }
         );
 
         btnUp.setOnClickListener(
                 (view) ->
                 {
-                    String y = "1";
-                    sendMessage(y);
+                    String y = "-5";
+                    String x = "0";
+                    sendMessage(x, y);
                 }
         );
 
         btnLeft.setOnClickListener(
                 (view) ->
                 {
-                    String x = "3";
-                    sendMessage(x);
+                    String y = "0";
+                    String x = "-5";
+                    sendMessage(x, y);
                 }
         );
 
         btnRight.setOnClickListener(
                 (view) ->
                 {
-                    String x = "4";
-                    sendMessage(x);
+                    String y = "0";
+                    String x = "5";
+                    sendMessage(x, y);
                 }
         );
 
@@ -110,13 +114,13 @@ public class MainActivity extends AppCompatActivity {
         ).start();
     }
 
-    public void sendMessage(String msg)
+    public void sendMessage(String msg, String msg2)
     {
         new Thread(
                 () ->
                 {
                     try {
-                        writer.write(msg + "\n");
+                        writer.write(msg + ":" + msg2 + "\n");
                         writer.flush();
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
