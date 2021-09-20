@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,7 +78,15 @@ public class MainActivity extends AppCompatActivity {
         btnMiddle.setOnClickListener(
                 (view) ->
                 {
+                    int r = new Random().nextInt(255);
+                    int g = new Random().nextInt(255);
+                    int b = new Random().nextInt(255);
 
+                    String rString = String.valueOf(r);
+                    String gString = String.valueOf(g);
+                    String bString = String.valueOf(b);
+
+                    sendMessageColor(rString, bString, gString);
                 }
         );
     }
@@ -124,6 +133,21 @@ public class MainActivity extends AppCompatActivity {
                         writer.flush();
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }).start();
+    }
+
+    public void sendMessageColor(String msg, String msg2, String msg3)
+    {
+        new Thread(
+                () ->
+                {
+                    try {
+                        writer.write(msg + ":" + msg2 + ":" + msg3 + "\n");
+                        writer.flush();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
